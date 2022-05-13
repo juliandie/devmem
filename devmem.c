@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
     off_t off_addr;
     void *map_base, *virt_addr;
     unsigned page_size, map_size, off_page, width;
-    int fd, argoff, flags;
+    int fd, flags;
 
     if (argc < 2) {
         printf("usage: %s [-rw] <address> [<width> <value>]\n", argv[0]);
@@ -77,7 +77,6 @@ int main(int argc, char **argv) {
             width = atoi(argv[optind]);
         else {
             const char *cptr;
-            int sizes_off;
             const char bhwl[] = "bhwl";
             const uint8_t sizes[] = {
                 8 * sizeof(char),
@@ -86,8 +85,6 @@ int main(int argc, char **argv) {
                 8 * sizeof(long),
                 0 /* bad */
             };
-            //sizes_off = strchrnul(bhwl, (argv[optind][0] | 0x20)) - bhwl;
-            //width = sizes[sizes_off];
             cptr = strchr(bhwl, argv[optind][0] | 0x20);
             if(cptr == NULL)
                 cptr = bhwl;
