@@ -34,9 +34,9 @@ enum {
 
 int main(int argc, char **argv) {
     uint64_t readval, writeval;
-    off_t off_addr;
     void *map_base, *virt_addr;
     unsigned page_size, map_size, off_page, width;
+    off_t off_addr = 0;
     int fd, flags;
 
     if (argc < 2) {
