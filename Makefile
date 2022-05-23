@@ -81,12 +81,12 @@ PREFIX ?= usr/bin
 ifeq ($(BUILD_SRC),)
 	srcdir := .
 else
-	srcdir := $(shell cd src && pwd)
+	srcdir := $(shell cd $(BUILD_SRC) && pwd)
 endif
 
 CC := $(CROSS_COMPILE)gcc
 
-INCLUDES := 
+INCLUDES :=
 DEFINES :=
 LIBPATHS :=
 LIBRARIES := 
@@ -98,7 +98,7 @@ TARGET := devmem
 
 CFLAGS := -Wextra -Werror -Wall -Wmissing-prototypes -W -O2 -g
 CFLAGS += $(call cc-option,-fno-PIE)
-CFLAGS += $(INCLUDES:%=-I$(SRC_DIR)/%)
+CFLAGS += $(INCLUDES:%=-I$(BUILD_SRC)/%)
 CFLAGS += $(DEFINES:%=-D%)
 
 LDFLAGS += $(LIBPATHS:%=-L%)
