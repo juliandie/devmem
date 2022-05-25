@@ -28,8 +28,8 @@
 #include <fcntl.h>
 
 enum {
-    DEVMEM_RH = (1 << 0),
-    DEVMEM_WO = (1 << 1),
+    DM_READ_ADVANCED = (1 << 0),
+    DM_WRITE_ONLY = (1 << 1),
 };
 
 int main(int argc, char **argv) {
@@ -53,10 +53,10 @@ int main(int argc, char **argv) {
 
         switch(c) {
             case 'r':
-                flags = DEVMEM_RH;
+                flags = DM_READ_ADVANCED;
                 break;
             case 'w':
-                flags = DEVMEM_WO;
+                flags = DM_WRITE_ONLY;
                 break;
             case '?': 
                 printf("usage: %s [-rw] <address> [<width> <value>]\n", argv[0]);
@@ -134,7 +134,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    if(!(flags & DEVMEM_WO)) {
+    if(!(flags & DM_WRITE_ONLY)) {
         switch (width) {
             case 8: readval = *(volatile uint8_t*)virt_addr; break;
             case 16: readval = *(volatile uint16_t*)virt_addr; break;
@@ -150,7 +150,7 @@ int main(int argc, char **argv) {
             printf("Written 0x%llX; readback 0x%llX\n",
                    (unsigned long long)writeval,
                    (unsigned long long)readval);
-        } else if(flags & DEVMEM_RH)
+        } else if(flags & DM_READ_ADVANCED)
             printf("0x%0*llX\n", (width >> 2), (unsigned long long)readval);
         else
             printf("%0*llX\n", (width >> 2), (unsigned long long)readval);
