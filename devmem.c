@@ -21,10 +21,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdint.h>
-#include <getopt.h>
 #include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 #include <fcntl.h>
 
 enum {
